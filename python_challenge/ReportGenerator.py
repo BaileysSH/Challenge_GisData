@@ -69,6 +69,7 @@ class ReportGenerator(object):
         self.logger.info("Start generating all reports...")
         for user_id in self._users:
             self.reportForUser(user_id=user_id)
+	self.logger.info("Generated all reports")
 
     def savetxt(self, obj: str, filename: str, path: str):
         """

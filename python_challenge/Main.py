@@ -21,6 +21,7 @@ if __name__ == '__main__':
     operations = database.select_all_rows(table='operazioni')
     operations = {op['id']: {**op} for op in operations}
 
+    logger.info("Update all users amounts...")
     for user_id, vals in users.items():
         first_dep = vals['primo_deposito']
         vals['operazioni'] = [vals for _, vals in operations.items() if vals['utente_id'] == user_id]
@@ -40,10 +41,12 @@ if __name__ == '__main__':
                     f"Totale Operazioni: {final_delta}, "
                     f"Saldo in Database Updated: {amount}")
 
+    logger.info("Updated all users")
     database.commit()
     database.close_connection()
 
     rep = ReportGenerator(users=users)
     rep.reportForAll()
+    logger.info("Process Complete!")
 
 
